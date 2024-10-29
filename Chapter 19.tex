@@ -1,0 +1,129 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{hyperref}
+
+\title{Chapter 19: Web Search Basics}
+\author{}
+\date{}
+
+\begin{document}
+
+\maketitle
+\section*{Chapter 19: Web Search Basics (Part 1)}
+
+\subsection*{Main Points and Topics:}
+
+\section{Hierarchical Clustering - Part 1}
+
+\subsection{Main Concepts}
+
+\begin{enumerate}
+    \item \textbf{Introduction to Hierarchical Clustering}:  
+    Hierarchical clustering creates a hierarchy of clusters, as opposed to flat clustering, which returns an unstructured set of clusters. This clustering method is valuable because it does not require specifying the number of clusters in advance and produces a more informative, structured output. There are two main types of hierarchical clustering: \textbf{agglomerative} (bottom-up) and \textbf{divisive} (top-down).
+
+    \item \textbf{Agglomerative Hierarchical Clustering (HAC)}:
+    \begin{itemize}
+        \item In \textbf{agglomerative clustering}, each document is initially treated as its own cluster. Clusters are then iteratively merged based on similarity until all documents belong to one large cluster. This is a bottom-up approach.
+        \item A \textbf{dendrogram} is used to visualize this hierarchy, where each horizontal line represents the merging of clusters, and the height of the line reflects the similarity between the clusters merged. This allows us to trace back the merging process, from individual documents to larger clusters.
+    \end{itemize}
+
+    \item \textbf{Monotonicity in Hierarchical Clustering}:  
+    An essential assumption in hierarchical clustering is \textbf{monotonicity}, meaning that as clusters merge, the combination similarities should decrease or remain the same. A violation of this principle leads to an \textbf{inversion}, which indicates that the clustering may not reflect the best possible merges at every step.
+
+    \item \textbf{Comparison with Flat Clustering}:  
+    Hierarchical clustering is often used when flat clustering fails to provide enough structure, or when a prespecified number of clusters is undesirable. While hierarchical clustering produces more meaningful clusters, it is computationally more expensive compared to flat clustering methods like K-means.
+\end{enumerate}
+
+\hrulefill
+
+\subsection{Deep Explanation of Key Topics}
+
+\begin{enumerate}
+    \item \textbf{Hierarchical Agglomerative Clustering (HAC)}:
+    \begin{itemize}
+        \item \textbf{Agglomerative} methods start with each document as a separate cluster and merge clusters step by step based on their similarity. This is contrasted with \textbf{divisive} methods, where all documents start in one cluster and are recursively split.
+        \item \textbf{Dendrogram}: A tree diagram that represents the order in which clusters are merged. The height of each branch reflects the level of similarity at which the clusters are joined. The tree can be "cut" at a chosen height to yield a desired number of clusters.
+        \item \textbf{Monotonicity}: As clusters merge, the similarity (or proximity) between clusters must either decrease or stay the same. This ensures that each step represents the most logical grouping based on the data.
+    \end{itemize}
+
+    \item \textbf{Similarity Measures in HAC}:
+    The clustering process depends on how similarity is measured between clusters. HAC typically uses one of the following approaches:
+    \begin{itemize}
+        \item \textbf{Single-link} clustering merges clusters based on the closest pair of elements from each cluster.
+        \item \textbf{Complete-link} clustering merges clusters based on the most distant pair of elements.
+        \item \textbf{Group-average} clustering averages similarities across all elements.
+        \item \textbf{Centroid similarity} measures similarity between the centers (centroids) of clusters.
+    \end{itemize}
+
+    \item \textbf{Efficiency and Complexity}:  
+    Hierarchical clustering, while powerful, is computationally expensive. Its complexity is at least quadratic ($O(N^2)$) in terms of the number of documents, which can make it impractical for very large datasets. Flat clustering algorithms like K-means, which have linear complexity ($O(N)$), are more efficient but lack the structure and flexibility of hierarchical clustering.
+
+This first part introduces the foundational concepts of hierarchical clustering, focusing primarily on agglomerative methods and their visualization through dendrograms. The next part will explore different hierarchical clustering methods, such as single-link, complete-link, and group-average clustering, as well as their optimality and computational challenges.
+
+\section{Hierarchical Clustering - Part 2}
+
+\subsection{Main Concepts}
+
+\begin{enumerate}
+    \item \textbf{Different Methods in Hierarchical Clustering}:
+    \begin{itemize}
+        \item \textbf{Single-link clustering (Minimum linkage)}: This method merges two clusters based on the closest distance between any pair of points in the clusters. It tends to form elongated, chain-like clusters.
+        \item \textbf{Complete-link clustering (Maximum linkage)}: Merges clusters based on the largest distance between any pair of points in the clusters. It produces compact clusters with tighter boundaries.
+        \item \textbf{Group-average clustering (Average linkage)}: Uses the average similarity between all pairs of elements from the two clusters. This method strikes a balance between single-link and complete-link approaches.
+        \item \textbf{Centroid-based clustering}: Measures the distance between the centroids (average points) of clusters. Merging is based on the centroid similarity.
+    \end{itemize}
+
+    \item \textbf{Challenges in Hierarchical Clustering}:
+    \begin{itemize}
+        \item \textbf{Optimality}: Since hierarchical clustering is greedy, it makes local decisions at each step without considering the global clustering structure. This can result in suboptimal clusters, especially with single-link and complete-link methods.
+        \item \textbf{Inversions in Dendrograms}: Inversions occur when clusters at higher levels in the dendrogram appear to be more similar than clusters at lower levels, violating monotonicity. This can create confusion in interpreting cluster quality.
+    \end{itemize}
+
+    \item \textbf{Evaluating Clusters}:
+    \begin{itemize}
+        \item \textbf{Cophenetic Correlation Coefficient}: Measures how well a dendrogram preserves the pairwise distances between the original data points. A higher value indicates that the clustering better reflects the original data structure.
+        \item \textbf{Silhouette Score}: Helps assess how well-defined clusters are by considering the similarity of points within clusters compared to points in other clusters. It ranges from -1 to 1, where a higher score indicates better-defined clusters.
+        \item \textbf{Internal Validity Measures}: These assess the cohesiveness of clusters using internal criteria like compactness and separation between clusters.
+    \end{itemize}
+
+    \item \textbf{Non-monotonicity and Fixes}:
+    \begin{itemize}
+        \item \textbf{Non-monotonicity} occurs when clusters at higher levels in the hierarchy are formed with higher similarity values than clusters at lower levels. This suggests that some cluster merges may not follow the best possible path in terms of similarity structure.
+        \item \textbf{Fixing Inversions}: Various methods, such as constrained clustering, can help avoid or minimize inversions. These methods enforce additional constraints, ensuring that the hierarchical clustering process adheres to the monotonicity principle more strictly.
+    \end{itemize}
+\end{enumerate}
+
+\hrulefill
+
+\subsection{Deep Explanation of Key Topics}
+
+\begin{enumerate}
+    \item \textbf{Single-link vs. Complete-link Clustering}:
+    \begin{itemize}
+        \item \textbf{Single-link clustering} merges clusters by the smallest distance between two points (nearest neighbor). It is sensitive to outliers and can form long, chain-like clusters, leading to less compact clusters. While this can capture some types of structures, such as connected components, it often suffers from the \textbf{"chaining effect"}.
+        \item \textbf{Complete-link clustering}, on the other hand, merges clusters based on the farthest points (furthest neighbor). This method is more robust against outliers and tends to form compact, well-separated clusters. However, it can be sensitive to the shapes of the data and may fail when clusters are not spherical.
+    \end{itemize}
+
+    \item \textbf{Group-average Clustering}:
+    \begin{itemize}
+        \item Group-average clustering strikes a balance between single-link and complete-link methods by using the average similarity between all points in two clusters. This makes it less sensitive to outliers than single-link and more adaptable to clusters with irregular shapes than complete-link.
+        \item The group-average approach is often used in practice because it avoids the extremes of chaining and over-compactness, providing a middle ground that works well in various situations.
+    \end{itemize}
+
+    \item \textbf{Centroid-based Clustering}:
+    \begin{itemize}
+        \item In this method, clusters are merged based on the distance between their centroids (the average position of all points in a cluster). While centroid-based clustering can effectively represent central tendencies of clusters, it can lead to problems if the clusters are non-spherical or if there is significant variance in cluster sizes. This method also requires recalculating centroids at every merge, which adds computational complexity.
+    \end{itemize}
+
+    \item \textbf{Limitations and Computational Complexity}:
+    \begin{itemize}
+        \item The major limitation of hierarchical clustering, particularly in large datasets, is its computational cost. For N data points, the time complexity is $O(N^2)$, which becomes infeasible for datasets with thousands or millions of points.
+        \item Several strategies, such as using approximations or reducing dimensions, are employed to manage computational costs while still leveraging the strengths of hierarchical clustering.
+    \end{itemize}
+\end{enumerate}
+
+\hrule
+
+This section highlights how web search engines have developed beyond just indexing and retrieving content to incorporate economic models like advertising and more sophisticated user interaction. Additionally, it addresses the technical challenges of estimating index size and detecting duplicate content using techniques like shingling. This combination of economic and technical solutions has helped search engines become more efficient and user-friendly.
+\end{document}

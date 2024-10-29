@@ -1,0 +1,162 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{enumerate}
+\usepackage{graphicx}
+\usepackage{geometry}
+\geometry{a4paper, margin=1in}
+
+\title{Numerical Questions on Hierarchical Clustering}
+\author{}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\section*{Numerical Questions on Hierarchical Clustering}
+
+\begin{enumerate}[1.]
+    \item \textbf{Distance Calculation}:  
+    Given the following points in a 2D space:
+    \begin{itemize}
+        \item Point A: (1, 2)
+        \item Point B: (3, 4)
+        \item Point C: (6, 8)
+    \end{itemize}
+    Calculate the Euclidean distance between:
+    \begin{enumerate}[(a)]
+        \item Point A and Point B  
+        \item Point A and Point C  
+        \item Point B and Point C  
+    \end{enumerate}
+
+    \item \textbf{Single-Linkage Clustering}:  
+    Using the distances calculated in Question 1, apply single-linkage clustering:
+    \begin{enumerate}[(a)]
+        \item If you treat each point as a separate cluster, show how clusters would merge step-by-step until all points belong to one cluster.  
+        \item At which step does the first merge occur, and which points are merged?
+    \end{enumerate}
+
+    \item \textbf{Complete-Linkage Clustering}:  
+    Using the same set of points from Question 1, perform complete-linkage clustering:
+    \begin{enumerate}[(a)]
+        \item Determine the first two clusters that would merge based on the maximum distances calculated from the points.  
+        \item What would the distance be between these clusters?
+    \end{enumerate}
+
+    \item \textbf{Group Average Linkage}:  
+    Suppose we have two clusters formed after the first two merges in a hierarchical clustering process:
+    \begin{itemize}
+        \item Cluster 1: {A, B} with points A (1, 2) and B (3, 4)  
+        \item Cluster 2: {C} with point C (6, 8)
+    \end{itemize}
+    Calculate the average distance between the points in Cluster 1 and Cluster 2.  
+    Use the Euclidean distance as your measure.
+
+    \item \textbf{Dendrogram Construction}:  
+    Based on the following distances between points A, B, and C:
+    \begin{itemize}
+        \item Distance (A, B) = 2.24  
+        \item Distance (A, C) = 7.21  
+        \item Distance (B, C) = 4.47  
+    \end{itemize}
+    Construct a simple dendrogram that shows how these points would be clustered.  
+    Indicate the height at which each merge occurs.
+
+    \item \textbf{Silhouette Score Calculation}:  
+    Consider three clusters with the following average distances:
+    \begin{itemize}
+        \item Cluster 1: Average distance within the cluster = 0.5  
+        \item Cluster 2: Average distance within the cluster = 1.2  
+        \item Cluster 3: Average distance to the nearest cluster (inter-cluster distance) = 1.5
+    \end{itemize}
+    Calculate the silhouette score for Cluster 1 using the formula:
+    \[
+    \text{Silhouette Score} = \frac{b - a}{\max(a, b)}
+    \]
+    where \( a \) is the average distance to points in the same cluster and \( b \) is the average distance to the nearest cluster.
+
+    \item \textbf{Cophenetic Correlation Coefficient}:  
+    Suppose you computed the cophenetic distances for a hierarchical clustering and obtained the following distances:
+    \begin{itemize}
+        \item Observed distances: [2, 3, 5]  
+        \item Cophenetic distances: [2.2, 3.1, 5.5]  
+    \end{itemize}
+    Calculate the cophenetic correlation coefficient using the formula:
+    \[
+    r = \frac{\text{Cov}(\text{observed}, \text{cophenetic})}{\sigma_{\text{observed}} \sigma_{\text{cophenetic}}}
+    \]
+    (You can assume hypothetical values for the covariance and standard deviations for this calculation if needed).
+
+    \item \textbf{Non-Monotonicity Example}:  
+    Given a hypothetical dendrogram showing merges of three clusters (A, B, C) at different heights, analyze whether the dendrogram violates monotonicity.  
+    \begin{itemize}
+        \item List the merged clusters and their respective heights.  
+        \item Identify if any clusters at higher levels are more similar than those at lower levels.
+    \end{itemize}
+\end{enumerate}
+
+\newpage
+
+\section*{Answers to Selected Questions}
+
+1. \textbf{Distance Calculation}:
+    \begin{enumerate}[(a)]
+        \item \( d(A, B) = \sqrt{(3-1)^2 + (4-2)^2} = \sqrt{2^2 + 2^2} = \sqrt{8} \approx 2.83 \)  
+        \item \( d(A, C) = \sqrt{(6-1)^2 + (8-2)^2} = \sqrt{5^2 + 6^2} = \sqrt{25 + 36} = \sqrt{61} \approx 7.81 \)  
+        \item \( d(B, C) = \sqrt{(6-3)^2 + (8-4)^2} = \sqrt{3^2 + 4^2} = \sqrt{9 + 16} = \sqrt{25} = 5 \)
+    \end{enumerate}
+
+2. \textbf{Single-Linkage Clustering}:
+    \begin{enumerate}[(a)]
+        \item First merge: A and B (distance = 2.83).  
+        Next merge: (A, B) with C (distance = 5).
+        \item First merge occurs between A and B.
+    \end{enumerate}
+
+3. \textbf{Complete-Linkage Clustering}:
+    \begin{enumerate}[(a)]
+        \item First merge: A and B (distance = 2.83).  
+        Next merge: (A, B) with C (distance = 7.81).
+        \item The distance between the merged clusters is 7.81.
+    \end{enumerate}
+
+4. \textbf{Group Average Linkage}:
+    \begin{itemize}
+        \item Average distance between Cluster 1 (A, B) and Cluster 2 (C):
+        \[
+        \text{Average distance} = \frac{d(A,C) + d(B,C)}{2} = \frac{7.81 + 5}{2} \approx 6.41
+        \]
+    \end{itemize}
+
+5. \textbf{Dendrogram Construction}:
+    \begin{itemize}
+        \item Merges would occur at:
+        \begin{itemize}
+            \item A and B at height 2.24.
+            \item A, B and C at height 4.47.
+        \end{itemize}
+    \end{itemize}
+
+6. \textbf{Silhouette Score Calculation}:
+    \begin{itemize}
+        \item For Cluster 1:  
+        \( a = 0.5 \), \( b = 1.5 \)  
+        \[
+        \text{Silhouette Score} = \frac{1.5 - 0.5}{\max(0.5, 1.5)} = \frac{1}{1.5} \approx 0.67
+        \]
+    \end{itemize}
+
+7. \textbf{Cophenetic Correlation Coefficient}:
+    \begin{itemize}
+        \item Calculate \( r \) with assumed covariance and standard deviations for observed and cophenetic distances.
+    \end{itemize}
+
+8. \textbf{Non-Monotonicity Example}:
+    \begin{itemize}
+        \item Analyze and provide reasoning based on the heights and similarities presented.
+    \end{itemize}
+
+\end{document}
